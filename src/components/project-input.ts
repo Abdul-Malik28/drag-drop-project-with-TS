@@ -1,10 +1,11 @@
-import { Component } from "./base-component.js";
-import { Validatable, validate } from '../util/validation.js';
+import Cmp from "./base-component.js";
+import * as Validation from '../util/validation.js';
+// import { autobind as Autobind } from "../decorators/autobind.js";
 import { Autobind } from "../decorators/autobind.js";
 import { projectState } from "../state/project-state.js";
 
 // ProjectInput Class
-export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
+export class ProjectInput extends Cmp<HTMLDivElement, HTMLFormElement> {
     titleInputElement: HTMLInputElement;
     descriptionInputElement: HTMLTextAreaElement;
     peopleInputElement: HTMLInputElement;
@@ -30,16 +31,16 @@ export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
         const enteredDescription = this.descriptionInputElement.value;
         const enteredPeople = this.peopleInputElement.value;
 
-        const titleValidatabale: Validatable = {
+        const titleValidatabale: Validation.Validatable = {
             value: enteredTitle,
             required: true
         };
-        const descriptionValidatabale: Validatable = {
+        const descriptionValidatabale: Validation.Validatable = {
             value: enteredDescription,
             required: true,
             minLength: 5
         };
-        const peopleValidatabale: Validatable = {
+        const peopleValidatabale: Validation.Validatable = {
             value: +enteredPeople,
             required: true,
             min: 1,
@@ -47,9 +48,9 @@ export class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
         };
 
         if (
-            !validate(titleValidatabale) ||
-            !validate(descriptionValidatabale) ||
-            !validate(peopleValidatabale)
+            !Validation.validate(titleValidatabale) ||
+            !Validation.validate(descriptionValidatabale) ||
+            !Validation.validate(peopleValidatabale)
         ) {
             alert('Invalid input, please try again!');
             return;
